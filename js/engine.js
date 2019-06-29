@@ -92,16 +92,27 @@ var Engine = (function(global) {
     function updateEntities(dt) {
         allEnemies.forEach(function(enemy) {
             enemy.update(dt);
+
         });
         player.update();
     }
 
     function checkCollisions() {
-        console.log("player's position is ", player.x, player.y);
+        console.log("Inside of checkCollisions ... player's position is ", player.x, player.y);
         allEnemies.forEach(function(enemy) {
-            console.log("enemy's position is ", enemy.x, enemy.y);
+            console.log("Inside of checkCollisions ... enemy's position is ", enemy.x, enemy.y);
+            if((between(player.x, enemy.x - 30, enemy.x + 30)) && (between(player.y, enemy.y - 30, enemy.y + 30))){
+                console.log("Collision!!!!!!");
+                player.x = 210.415;
+                player.y = 404;
+            }
         });
     }
+
+    function between(x, min, max) {
+        console.log(`inside between ... x:${x} min:${min} max:${max} `)
+        return x >= min && x <= max;
+}
 
 
 
