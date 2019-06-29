@@ -90,17 +90,16 @@ var Engine = (function(global) {
      * render methods.
      */
     function updateEntities(dt) {
+        let endOfBoard = 500;
         allEnemies.forEach(function(enemy) {
             enemy.update(dt);
-            if(enemy.x  >= 500){
+            if(enemy.x  >= endOfBoard){
                 let index = allEnemies.indexOf(enemy);
-                console.log(`the enemy is at index ${index}`)
                 allEnemies.splice(index, 1);
-                this.x = 0.415;
+                this.x = Enemy.startingX;
             }
             if(allEnemies.length < 3){
-                console.log("There aren't any enemies")
-                let anEnemy = new Enemy(0.415, (this.getRndInteger(1, 5) * 84.166), this.getRndInteger(100, 500));
+                let anEnemy = EnemyFactory()
                 allEnemies.push(anEnemy);
             }
         });
@@ -108,23 +107,18 @@ var Engine = (function(global) {
     }
 
     function checkCollisions() {
-        //console.log("Inside of checkCollisions ... player's position is ", player.x, player.y);
+        let areaOfCollision = 30; 
         allEnemies.forEach(function(enemy) {
-            //console.log("Inside of checkCollisions ... enemy's position is ", enemy.x, enemy.y);
-            if((between(player.x, enemy.x - 30, enemy.x + 30)) && (between(player.y, enemy.y - 30, enemy.y + 30))){
-                //console.log("Collision!!!!!!");
-                player.x = 210.415;
-                player.y = 404;
+            if((between(player.x, enemy.x - areaOfCollision, enemy.x + areaOfCollision)) && (between(player.y, enemy.y - areaOfCollision, enemy.y + areaOfCollision))){
+                player.x = Player.startingX;
+                player.y = Player.startingY;
             }
         });
     }
 
     function between(x, min, max) {
-        //console.log(`inside between ... x:${x} min:${min} max:${max} `)
         return x >= min && x <= max;
 }
-
-
 
     /* This function initially draws the "game level", it will then call
      * the renderEntities function. Remember, this function is called every
