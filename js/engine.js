@@ -92,17 +92,27 @@ var Engine = (function(global) {
     function updateEntities(dt) {
         allEnemies.forEach(function(enemy) {
             enemy.update(dt);
-
+            if(enemy.x  >= 500){
+                let index = allEnemies.indexOf(enemy);
+                console.log(`the enemy is at index ${index}`)
+                allEnemies.splice(index, 1);
+                this.x = 0.415;
+            }
+            if(allEnemies.length < 3){
+                console.log("There aren't any enemies")
+                let anEnemy = new Enemy(0.415, (this.getRndInteger(1, 5) * 84.166), this.getRndInteger(100, 500));
+                allEnemies.push(anEnemy);
+            }
         });
         player.update();
     }
 
     function checkCollisions() {
-        console.log("Inside of checkCollisions ... player's position is ", player.x, player.y);
+        //console.log("Inside of checkCollisions ... player's position is ", player.x, player.y);
         allEnemies.forEach(function(enemy) {
-            console.log("Inside of checkCollisions ... enemy's position is ", enemy.x, enemy.y);
+            //console.log("Inside of checkCollisions ... enemy's position is ", enemy.x, enemy.y);
             if((between(player.x, enemy.x - 30, enemy.x + 30)) && (between(player.y, enemy.y - 30, enemy.y + 30))){
-                console.log("Collision!!!!!!");
+                //console.log("Collision!!!!!!");
                 player.x = 210.415;
                 player.y = 404;
             }
@@ -110,7 +120,7 @@ var Engine = (function(global) {
     }
 
     function between(x, min, max) {
-        console.log(`inside between ... x:${x} min:${min} max:${max} `)
+        //console.log(`inside between ... x:${x} min:${min} max:${max} `)
         return x >= min && x <= max;
 }
 
