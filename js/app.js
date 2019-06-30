@@ -2,11 +2,11 @@
 function EnemyFactory() {
     return new Enemy(Enemy.startingX, (this.getRndInteger(1, 5) * 84.166), this.getRndInteger(100, 500));
 };
-    Enemy = function(x, y, speed) {
-        this.x = x;
-        this.y = y;
-        this.speed = speed;
-        this.sprite = 'images/enemy-bug.png';
+Enemy = function(x, y, speed) {
+    this.x = x;
+    this.y = y;
+    this.speed = speed;
+    this.sprite = 'images/enemy-bug.png';
 };
 
 Enemy.startingX = 0.415;
@@ -14,7 +14,7 @@ Enemy.startingX = 0.415;
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
 Enemy.prototype.update = function(dt) {
-    if(this.x  >= 500){
+    if (this.x >= 500) {
         this.x = 0.415;
     }
     this.x = this.x + (this.speed * dt);
@@ -32,21 +32,23 @@ Player = function(x, y) {
 }
 
 Player.prototype.update = function() {
-    if(this.y  <= 0){
+    
+    
+    if (this.y <= 0) {
         this.x = Player.startingX;
         this.y = Player.startingY;
     }
-    if((this.keyPressed === 'up')  && (this.y > 0)){
-        this.y = this.y -= Player.moveY; 
+    if ((this.keyPressed === 'up') && (this.y > 0)) {
+        this.y = this.y -= Player.moveY;
     }
-    if((this.keyPressed === 'down') && (this.y < Player.startingY)){
-        this.y = this.y += Player.moveY;   
+    if ((this.keyPressed === 'down') && (this.y < Player.startingY)) {
+        this.y = this.y += Player.moveY;
     }
-    if((this.keyPressed === 'right')  && (this.x < Player.boardBoundaryRight)){
-        this.x = this.x += Player.moveX; 
+    if ((this.keyPressed === 'right') && (this.x < Player.boardBoundaryRight)) {
+        this.x = this.x += Player.moveX;
     }
-    if((this.keyPressed === 'left')  && (this.x > Player.boardBoundaryLeft)){
-        this.x = this.x -= Player.moveX; 
+    if ((this.keyPressed === 'left') && (this.x > Player.boardBoundaryLeft)) {
+        this.x = this.x -= Player.moveX;
     }
     this.keyPressed = null;
 };
@@ -71,7 +73,7 @@ Player.boardBoundaryLeft = 42.118;
 let numInitEnemies = 3;
 let allEnemies = [];
 
-for(numInitEnemies; numInitEnemies > 0; numInitEnemies--){
+for (numInitEnemies; numInitEnemies > 0; numInitEnemies--) {
     enemy = EnemyFactory();
     allEnemies.push(enemy);
 }
@@ -80,7 +82,7 @@ for(numInitEnemies; numInitEnemies > 0; numInitEnemies--){
 let player = new Player(Player.startingX, Player.startingY);
 
 function getRndInteger(min, max) {
-  return Math.floor(Math.random() * (max - min)) + min;
+    return Math.floor(Math.random() * (max - min)) + min;
 }
 
 // This listens for key presses and sends the keys to your
