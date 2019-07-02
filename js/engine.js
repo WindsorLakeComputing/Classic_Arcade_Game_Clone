@@ -1,3 +1,4 @@
+'use strict';
 /* Engine.js
  * This file provides the game loop functionality (update entities and render),
  * draws the initial game board on the screen, and then calls the update and
@@ -95,7 +96,6 @@ var Engine = (function(global) {
             if (enemy.x >= endOfBoard) {
                 let index = allEnemies.indexOf(enemy);
                 allEnemies.splice(index, 1);
-                this.x = Enemy.startingX;
             }
             if (allEnemies.length < 3) {
                 let anEnemy = EnemyFactory()
@@ -109,8 +109,8 @@ var Engine = (function(global) {
         let areaOfCollision = 40;
         allEnemies.forEach(function(enemy) {
             if ((between(player.x, enemy.x - areaOfCollision, enemy.x + areaOfCollision)) && (between(player.y, enemy.y - areaOfCollision, enemy.y + areaOfCollision))) {
-                player.x = Player.startingX;
-                player.y = Player.startingY;
+                player.x = player.startingX;
+                player.y = player.startingY;
             }
         });
     }
